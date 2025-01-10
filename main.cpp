@@ -6,6 +6,13 @@ float rotationAngle = 0.0;
 float rotation =0.0;
 float rotationCube = 0.0;
 float planetOrbit = 0.0;
+float rotationX = 0.0f;
+float rotationY = 0.0f;
+float scale = 1.0f;
+float translationX = 0.0f, translationY  =0.0f, translationZ = 0.0f;
+
+bool isMoving = true;
+bool hidden = false;
 
 void Sphere();
 void Muter();
@@ -13,10 +20,13 @@ void Tetap(int w, int h);
 void drawcartecius();
 void Anak();
 void astronout();
+void hiddenCarte();
 void drawText(float x , float y , float z, const char* text, int fontSize);
+void keyboard(unsigned char key, int x, int y);
 //Kalo ada referensi di AI jangan langsung di masukan 
 //ke kodingan secara langsung.intinya jangan sampe mengubah 
 //kodingan sebelum nya.
+
 int main (int argc , char**argv)
 {
 	glutInit(&argc,argv);
@@ -32,6 +42,7 @@ int main (int argc , char**argv)
 	glutDisplayFunc(Sphere);
 	glutIdleFunc(Muter);
 	glutReshapeFunc(Tetap);
+	glutKeyboardFunc(keyboard);
 	//glutFullScreen();
 	glutMainLoop();
 	return 0;
@@ -39,12 +50,18 @@ int main (int argc , char**argv)
 void Sphere()
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	drawcartecius();
+	hiddenCarte();
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
-	gluLookAt(50.0,30.0,50.0,
+    gluLookAt(0.0,0.0,20.0,
 	          0.0,0.0,0.0,
 			  0.0,1.0,0.0);
+			  
+	glTranslatef(translationX, translationY, translationZ);
+    glScalef(scale, scale, scale);
+    glRotatef(rotationX, 1.0f, 0.0f, 0.0f);
+    glRotatef(rotationY, 0.0f, 1.0f, 0.0f);
+    
 	glPushMatrix();
 	glColor3ub(236,131,5); // Warna planet utama  (orange)
 	glRotatef(rotation += 0.01,0,1,0);
@@ -251,12 +268,61 @@ glVertex3f(0.0,0.0,-50.0);
 glVertex3f(0.0,0.0,50.0);
 glEnd();
 }
-void zoom()
+void keyboard(unsigned char key, int x, int y) 
 {
-
-
-
+switch (key) {
+		case 'i':
+			translationZ -= 0.1f;
+			break;
+		case 'k': // Translasi ke belakang
+    		translationZ += 0.1f;
+   		 	break;
+		case 'j': // Translasi ke kiri
+    		translationX -= 0.1f;
+    		break;
+		case 'l': // Translasi ke kanan
+    		translationX += 0.1f;
+ 	    	break;
+		case 'u': // Translasi ke atas
+   	 		translationY += 0.1f;
+ 		    break;
+		case 'o': // Translasi ke bawah
+    		translationY -= 0.1f;
+ 	    	break;
+        case 'w':
+            rotationX -= 5.0f;
+            break;
+        case 's':
+            rotationX += 5.0f;
+            break;
+        case 'a':
+            rotationY -= 5.0f;
+            break;
+        case 'd':
+            rotationY += 5.0f;
+            break;
+        case '+':
+            scale += 0.1f;
+            break;
+        case '-':
+            scale -= 0.1f;
+            break;
+        case 'c':
+        	hidden = !hidden;
+        	break;
+        case 27: // ESC untuk keluar
+            exit(0);
+            break;
+    }
+    glutPostRedisplay();
 }
+void hiddenCarte()
+{
+	if (hidden){
+	  drawcartecius();
+	}
+}
+
 void drawText(float x , float y , float z, const char* text, int fontSize)
 {
  glColor3ub(0,255,255);
