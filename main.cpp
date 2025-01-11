@@ -21,6 +21,7 @@ void drawcartecius();
 void Anak();
 void astronout();
 void hiddenCarte();
+void Bintang();
 void drawText(float x , float y , float z, const char* text, int fontSize);
 void keyboard(unsigned char key, int x, int y);
 //Kalo ada referensi di AI jangan langsung di masukan 
@@ -73,8 +74,10 @@ void Sphere()
     drawText(0.0,0.0,0.0,"Matahari",20);
     glPopMatrix();
     
+
 	glPopMatrix();
 	Anak();
+	Bintang();
 	glutSwapBuffers();
 	glutPostRedisplay ();
 
@@ -193,7 +196,16 @@ void Anak() // Oleh pipit
 }
 void Bintang()
 {
-	
+	  glPointSize(2.0); // Ukuran bintang kecil
+    glBegin(GL_POINTS);
+    glColor3ub(255, 255, 255); // Warna bintang (putih)
+    for (int i = 0; i < 100; ++i) { // 100 bintang
+        float x = (rand() % 100 - 50) / 2.0f; // Posisi X acak
+        float y = (rand() % 100 - 50) / 2.0f; // Posisi Y acak
+        float z = (rand() % 100 - 50) / 2.0f; // Posisi Z acak
+        glVertex3f(x, y, z);
+    }
+    glEnd();
 }
 void Muter()
 {
@@ -294,12 +306,6 @@ switch (key) {
             break;
         case 's':
             rotationX += 5.0f;
-            break;
-        case 'a':
-            rotationY -= 5.0f;
-            break;
-        case 'd':
-            rotationY += 5.0f;
             break;
         case '+':
             scale += 0.1f;
