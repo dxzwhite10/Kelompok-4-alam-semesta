@@ -9,7 +9,9 @@ float planetOrbit = 0.0;
 float rotationX = 0.0f;
 float rotationY = 0.0f;
 float scale = 1.0f;
-float translationX = 0.0f, translationY  =0.0f, translationZ = 0.0f;
+float cameraX = 0.0, cameraY = 0.0, cameraZ = 20.0;
+float cameraAngleX = 0.0, cameraAngleY = 0.0;
+
 
 bool isMoving = true;
 bool hidden = false;
@@ -54,20 +56,14 @@ void Sphere()
 	hiddenCarte();
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
-    gluLookAt(0.0,0.0,20.0,
-	          0.0,0.0,0.0,
-			  0.0,1.0,0.0);
+    gluLookAt(cameraX, cameraY, cameraZ, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
 			  
-	glTranslatef(translationX, translationY, translationZ);
-    glScalef(scale, scale, scale);
-    glRotatef(rotationX, 1.0f, 0.0f, 0.0f);
-    glRotatef(rotationY, 0.0f, 1.0f, 0.0f);
-    
+	
 	glPushMatrix();
 	glColor3ub(236,131,5); // Warna planet utama  (orange)
 	glRotatef(rotation += 0.01,0,1,0);
 	glRotated(90,1.0,0.0,0.0);
-	glutWireSphere(6.0,20,20);
+	glutSolidSphere(6.0,20,20);
 	
 	glPushMatrix();
     glTranslatef(0.0,0.0,-7.0);
@@ -86,12 +82,11 @@ void Anak() // Oleh pipit
 {
   // Planet pertama
     glPushMatrix();
-    glColor3ub(169, 169, 169); // Warna planet pertama (biru)
+    glColor3ub(169, 169, 169); // abu-abu
     glRotatef(planetOrbit, 0.0, 1.0, 0.0);
     glTranslatef(8.0, 0.0, 0.0);
     glRotatef(rotation * 2, 0.0, 1.0, 0.0);
-    glRotated(90,1.0,0.0,0.0);
-    glutWireSphere(0.5, 16, 16);
+    glutSolidSphere(0.5, 16, 16);
     
     glPushMatrix();
     glTranslatef(0.0,1.0,0.0);
@@ -102,12 +97,11 @@ void Anak() // Oleh pipit
 
     // Planet kedua
     glPushMatrix();
-    glColor3ub(0, 255, 0); // Warna planet kedua (hijau)
+    glColor3ub(233, 223, 196); // Warna krem
     glRotatef(planetOrbit + 120, 0.0, 1.0, 0.0); // Rotasi dengan offset 120 derajat
     glTranslatef(8.0, 0.0, 0.0); // Orbit lebih jauh
     glRotatef(rotation * 45, 0.0, 1.0, 0.0);
-    glRotated(90,1.0,0.0,0.0);
-    glutWireSphere(0.9, 20, 20);
+    glutSolidSphere(0.9, 20, 20);
     
     glPushMatrix();
     glTranslatef(0.0,1.2,0.0);
@@ -118,12 +112,11 @@ void Anak() // Oleh pipit
 
     // Planet ketiga
     glPushMatrix();
-    glColor3ub(0, 0, 255); // Warna planet ketiga (merah)
+    glColor3ub(0, 0, 255); // Warna biru
     glRotatef(planetOrbit + 90, 0.0, 1.0, 0.0); // Rotasi dengan offset 240 derajat
     glTranslatef(10.0, 0.0, 0.0); // Orbit lebih jauh
     glRotatef(rotation * 12.0, 0.0, 1.0, 0.0);
-    glRotated(90,1.0,0.0,0.0);
-    glutWireSphere(1.0, 20, 20);
+    glutSolidSphere(1.0, 20, 20);
     
     glPushMatrix();
     glTranslatef(0.0,1.5,0.0);
@@ -138,8 +131,8 @@ void Anak() // Oleh pipit
     glRotatef(planetOrbit + 135, 0.0, 1.0, 0.0);
     glTranslatef(14.0, 0.0, 0.0);
     glRotatef(rotation * 1.2, 0.0, 1.0, 0.0);
-    glRotated(90,1.0,0.0,0.0);
-    glutWireSphere(0.7, 20, 20);
+    
+    glutSolidSphere(0.7, 20, 20);
     
     glPushMatrix();
     glTranslatef(0.0,1.2,0.0);
@@ -153,8 +146,7 @@ void Anak() // Oleh pipit
     glRotatef(planetOrbit + 180, 0.0, 1.0, 0.0);
     glTranslatef(18.0, 0.0, 0.0);
     glRotatef(rotation * 0.5, 0.0, 1.0, 0.0);
-    glRotated(90,1.0,0.0,0.0);
-    glutWireSphere(2.0, 25, 25);
+    glutSolidSphere(2.0, 25, 25);
     glPushMatrix();
     glTranslatef(0.0,2.2,0.0);
     drawText(0.0,0.0,0.0,"Jupiter",12);
@@ -167,12 +159,11 @@ void Anak() // Oleh pipit
     glRotatef(planetOrbit + 255, 0.0, 1.0, 0.0);
     glTranslatef(22.0, 0.0, 0.0);
     glRotatef(rotation * 0.3, 0.0, 1.0, 0.0);
-    glRotated(90,1.0,0.0,0.0);
-    glutWireSphere(1.7, 25, 25);
+    glutSolidSphere(1.7, 25, 25);
     
     glPushMatrix();//Cicin saturnus
     glColor3ub(169,169,169);
-    glutWireTorus(0.1,2.0,30,30);
+    glutSolidTorus(0.1,2.0,30,30);
     glPopMatrix();
     
     glTranslatef(0.0,0.85,0.0);
@@ -186,8 +177,7 @@ void Anak() // Oleh pipit
     glRotatef(planetOrbit + 270, 0.0, 1.0, 0.0);
     glTranslatef(26.0, 0.0, 0.0);
     glRotatef(rotation * 0.2, 0.0, 1.0, 0.0);
-    glRotated(90,1.0,0.0,0.0);
-    glutWireSphere(1.5, 20, 20);
+    glutSolidSphere(1.5, 20, 20);
     glPushMatrix();
     glTranslatef(0.0,2.0,0.0);
     drawText(0.0,0.0,0.0,"Uranus",12);
@@ -282,51 +272,42 @@ glEnd();
 }
 void keyboard(unsigned char key, int x, int y) 
 {
-switch (key) {
-		case 'i':
-			translationZ -= 0.1f;
-			break;
-		case 'k': // Translasi ke belakang
-    		translationZ += 0.1f;
-   		 	break;
-		case 'j': // Translasi ke kiri
-    		translationX -= 0.1f;
-    		break;
-		case 'l': // Translasi ke kanan
-    		translationX += 0.1f;
- 	    	break;
-		case 'u': // Translasi ke atas
-   	 		translationY += 0.1f;
- 		    break;
-		case 'o': // Translasi ke bawah
-    		translationY -= 0.1f;
- 	    	break;
-        case 'w':
-            rotationX -= 5.0f;
-            break;
-        case 's':
-            rotationX += 5.0f;
-            break;
-        case '+':
-            scale += 0.1f;
-            break;
-        case '-':
-            scale -= 0.1f;
-            break;
-        case 'c':
-        	hidden = !hidden;
-        	break;
-        case 27: // ESC untuk keluar
-            exit(0);
-            break;
+	float step = 0.5;
+    switch (key) {
+    case 'w':
+        cameraZ -= step;
+        break;
+    case 's':
+        cameraZ += step;
+        break;
+    case 'a':
+        cameraX -= step;
+        break;
+    case 'd':
+        cameraX += step;
+        break;
+    case 'q':
+        cameraY += step;
+        break;
+    case 'e':
+        cameraY -= step;
+        break;
+    case 'c':
+        hidden = !hidden;
+        break;
+    case 27: // ESC untuk keluar
+        exit(0);
+        break;
     }
     glutPostRedisplay();
-}
+    
+     }
+     
 void hiddenCarte()
 {
-	if (hidden){
-	  drawcartecius();
-	}
+    if (hidden) {
+        drawcartecius();
+    }
 }
 
 void drawText(float x , float y , float z, const char* text, int fontSize)
@@ -342,3 +323,4 @@ void drawText(float x , float y , float z, const char* text, int fontSize)
  glPopMatrix();
  glEnd();
 }
+
