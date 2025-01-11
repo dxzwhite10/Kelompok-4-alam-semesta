@@ -2,6 +2,7 @@
 #include <math.h>
 #include <cstring>
 
+const int numStars = 100; 
 float rotationAngle = 0.0;
 float rotation =0.0;
 float rotationCube = 0.0;
@@ -11,6 +12,8 @@ float rotationY = 0.0f;
 float scale = 1.0f;
 float cameraX = 0.0, cameraY = 0.0, cameraZ = 20.0;
 float cameraAngleX = 0.0, cameraAngleY = 0.0;
+float star[numStars][3];
+
 
 
 bool isMoving = true;
@@ -24,6 +27,7 @@ void Anak();
 void astronout();
 void hiddenCarte();
 void Bintang();
+void drawBintang();
 void drawText(float x , float y , float z, const char* text, int fontSize);
 void keyboard(unsigned char key, int x, int y);
 //Kalo ada referensi di AI jangan langsung di masukan 
@@ -53,11 +57,13 @@ int main (int argc , char**argv)
 void Sphere()
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	hiddenCarte();
+	
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
     gluLookAt(cameraX, cameraY, cameraZ, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
-			  
+    
+	drawBintang();	  
+	hiddenCarte();
 	
 	glPushMatrix();
 	glColor3ub(236,131,5); // Warna planet utama  (orange)
@@ -186,16 +192,28 @@ void Anak() // Oleh pipit
 }
 void Bintang()
 {
-	  glPointSize(2.0); // Ukuran bintang kecil
-    glBegin(GL_POINTS);
-    glColor3ub(255, 255, 255); // Warna bintang (putih)
-    for (int i = 0; i < 100; ++i) { // 100 bintang
-        float x = (rand() % 100 - 50) / 2.0f; // Posisi X acak
-        float y = (rand() % 100 - 50) / 2.0f; // Posisi Y acak
-        float z = (rand() % 100 - 50) / 2.0f; // Posisi Z acak
-        glVertex3f(x, y, z);
+    for (int i = 0; i < numStars; ++i)
+    {                                              // 100 bintang
+        star[i][0] = (rand() % 201 - 100) / 10.0f; // Posisi X acak
+        star[i][1] = (rand() % 201 - 100) / 10.0f; // Posisi Y acak
+        star[i][2] = (rand() % 201 - 100) / 10.0f; // Posisi Z acak
     }
     glEnd();
+}
+void drawBintang()
+{
+	glMatrixMode(GL_MODELVIEW);
+	glPushMatrix();
+	glLoadIdentity();
+    glPointSize(2.0); // Ukuran bintang kecil
+    glBegin(GL_POINTS);
+    glColor3ub(255, 255, 255); // Warna bintang (putih)
+    for (int i = 0; i < numStars; ++i)
+    {                                                   // 100 bintang
+        glVertex3f(star[i][0], star[i][1], star[i][2]); // Posisi bintang
+    }
+    glEnd();
+    glPopMatrix();
 }
 void Muter()
 {
