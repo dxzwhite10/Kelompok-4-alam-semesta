@@ -7,6 +7,7 @@ float rotationAngle = 0.0;
 float rotation =0.0;
 float rotationCube = 0.0;
 float planetOrbit = 0.0;
+float moonOrbit = 0.0;
 float rotationX = 0.0f;
 float rotationY = 0.0f;
 float scale = 1.0f;
@@ -129,6 +130,14 @@ void Anak() // Oleh pipit
     drawText(0.0,0.0,0.0,"Bumi",12);
     glPopMatrix();
     
+    glPushMatrix();
+    glColor3ub(200,200,200);
+    glRotatef(moonOrbit,0.0,0.1,0.0);
+    glTranslatef(3.0,0.0,1.5);
+    drawText(0.0,0.0,0.0,"Bulan",12);
+    glutSolidSphere(0.3,16,16);
+    glPopMatrix();
+    
     glPopMatrix();
     
     // Planet keempat
@@ -169,6 +178,7 @@ void Anak() // Oleh pipit
     
     glPushMatrix();//Cicin saturnus
     glColor3ub(169,169,169);
+    glTranslatef(0.0, 0.1, 0.0);
     glutSolidTorus(0.1,2.0,30,30);
     glPopMatrix();
     
@@ -224,6 +234,10 @@ void Muter()
 	planetOrbit += 0.02;
     if (planetOrbit > 360.0) {
     	planetOrbit-= 360.0;
+	}
+	moonOrbit+=0.1;
+	if (moonOrbit > 360.0){
+		moonOrbit -= 360.0;
 	}
         
 	glutPostRedisplay();
