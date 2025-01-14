@@ -26,22 +26,18 @@ void Muter();
 void Tetap(int w, int h);
 void drawcartecius();
 void Anak();
-void astronout();
 void hiddenCarte();
 void Bintang();
 void drawBintang();
 void drawText(float x , float y , float z, const char* text, int fontSize);
 void keyboard(unsigned char key, int x, int y);
-//Kalo ada referensi di AI jangan langsung di masukan 
-//ke kodingan secara langsung.intinya jangan sampe mengubah 
-//kodingan sebelum nya.
 
 int main (int argc , char**argv)
 {
 	glutInit(&argc,argv);
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
-	glutInitWindowSize(800, 800);
-    glutInitWindowPosition(100, 100);
+//	glutInitWindowSize(800, 800);
+//  glutInitWindowPosition(100, 100);
 	glutCreateWindow("Kelompok 4");
 	glEnable(GL_DEPTH_TEST);
 	glMatrixMode(GL_PROJECTION);
@@ -52,7 +48,7 @@ int main (int argc , char**argv)
 	glutIdleFunc(Muter);
 	glutReshapeFunc(Tetap);
 	glutKeyboardFunc(keyboard);
-	//glutFullScreen();
+	glutFullScreen();
 	glutMainLoop();
 	return 0;
 }
@@ -273,38 +269,6 @@ void Tetap(int w, int h)
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
     gluPerspective(45.0, (float)w / (float)h, 1.0, 100.0);
-}
-void astronout()
-{
-glColor3f(1.0, 1.0, 1.0); // white color for helmet 
-glBegin(GL_POLYGON);     
-for (int i = 0; i < 360; i++) {
-    float angle = i * 3.14159 / 180; // Convert degrees to radians
-    glVertex2f(0.1 * cos(angle), 0.1 * sin(angle)); // circle with radius 0.1
-}
-glEnd();
-
-// Draw body (torso)
-glColor3f(0.0, 0.0, 0.0); // black color for body
-glLineWidth(5);
-
-// Draw torso
-glBegin(GL_LINES);
-glVertex2f(0.0, 0.1); // start at the bottom of the helmet
-glVertex2f(0.0, -0.4); // body goes down
-glEnd(); 
-
-// Draw right arm
-glBegin(GL_LINES);
-glVertex2f(0.0, 0.0); // torso connection point
-glVertex2f(0.3, -0.1); // right arm
-glEnd();
-
-// Draw left arm
-glBegin(GL_LINES);
-glVertex2f(0.0, 0.0); // torso connection point
-glVertex2f(-0.3, -0.1); // left arm 
-glEnd();	
 }
 void drawcartecius()
 {
