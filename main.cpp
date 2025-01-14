@@ -14,7 +14,8 @@ float scale = 1.0f;
 float cameraX = 0.0, cameraY = 0.0, cameraZ = 20.0;
 float cameraAngleX = 0.0, cameraAngleY = 0.0;
 float star[numStars][3];
-
+float lightPos[] = {0.0f, 10.0f, 0.0f, 1.0f}; // posisi cahaya x, y, z, w
+float lightPos1[] = {5.0f, 10.0f, 0.0f, 1.0f}; // Posisi cahaya kedua (x, y, z, w)
 
 
 bool isMoving = true;
@@ -62,6 +63,25 @@ void Sphere()
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
     gluLookAt(cameraX, cameraY, cameraZ, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
+    
+    glEnable(GL_LIGHTING);
+    glEnable(GL_LIGHT0); // cahaya 1
+    glEnable(GL_COLOR_MATERIAL);
+    GLfloat ambientLight[] = {0.3f, 0.3f, 0.3f, 1.0f};
+    GLfloat diffuseLight[] = {1.0f, 1.0f, 1.0f, 1.0f};
+
+   
+    glLightfv(GL_LIGHT0, GL_AMBIENT, ambientLight);
+    glLightfv(GL_LIGHT0, GL_DIFFUSE, diffuseLight);
+    glLightfv(GL_LIGHT0, GL_POSITION, lightPos);
+
+    // cahaya 2
+    glEnable(GL_LIGHT1);
+    GLfloat ambientLigh1[] = {0.2f, 0.2f, 0.2f, 1.0f};
+    GLfloat diffuseLight1[] = {0.8f, 0.8f, 0.8f, 1.0f};
+    glLightfv(GL_LIGHT1, GL_AMBIENT, ambientLight);
+    glLightfv(GL_LIGHT1, GL_DIFFUSE, diffuseLight1);
+    glLightfv(GL_LIGHT1, GL_POSITION, lightPos1);
     
 	drawBintang();	  
 	hiddenCarte();
