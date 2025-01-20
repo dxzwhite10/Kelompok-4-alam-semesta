@@ -101,9 +101,24 @@ void Sphere()
 	glutPostRedisplay ();
 
 }
+void drawOrbit(float radius, int segments) //pipit
+{
+    glColor3ub(255, 255, 255); // Warna putih untuk garis orbit
+    glBegin(GL_LINE_LOOP);
+    for (int i = 0; i < segments; i++)
+    {
+        float angle = 2.0f * M_PI * i / segments; // Sudut tiap segmen
+        float x = radius * cos(angle);
+        float z = radius * sin(angle);
+        glVertex3f(x, 0.0, z);
+    }
+    glEnd();
+}
 void Anak() // Oleh pipit
 {
   // Planet pertama
+  	drawOrbit(8.0, 100);
+  	
     glPushMatrix();
     glColor3ub(169, 169, 169); // abu-abu
     glRotatef(planetOrbit, 0.0, 1.0, 0.0);
@@ -117,12 +132,14 @@ void Anak() // Oleh pipit
     glPopMatrix();
     
     glPopMatrix();
-
+	
     // Planet kedua
+    drawOrbit(10.0, 100);
+    
     glPushMatrix();
     glColor3ub(233, 223, 196); // Warna krem
     glRotatef(planetOrbit + 120, 0.0, 1.0, 0.0); // Rotasi dengan offset 120 derajat
-    glTranslatef(8.0, 0.0, 0.0); // Orbit lebih jauh
+    glTranslatef(8.0, 0.0, 0.0); // posisi planet
     glRotatef(rotation * 45, 0.0, 1.0, 0.0);
     glutSolidSphere(0.9, 20, 20);
     
@@ -134,6 +151,8 @@ void Anak() // Oleh pipit
     glPopMatrix();
 
     // Planet ketiga
+    drawOrbit(12.0, 100);
+    
     glPushMatrix();
     glColor3ub(0, 0, 255); // Warna biru
     glRotatef(planetOrbit + 90, 0.0, 1.0, 0.0); // Rotasi dengan offset 240 derajat
@@ -157,8 +176,10 @@ void Anak() // Oleh pipit
     glPopMatrix();
     
     // Planet keempat
+    drawOrbit(14.0, 100);
+    
     glPushMatrix();
-    glColor3ub(255, 69, 0); // Warna planet keempat (Merah)
+    glColor3ub(255, 69, 0); // Warna (Merah)
     glRotatef(planetOrbit + 135, 0.0, 1.0, 0.0);
     glTranslatef(14.0, 0.0, 0.0);
     glRotatef(rotation * 1.2, 0.0, 1.0, 0.0);
@@ -172,8 +193,10 @@ void Anak() // Oleh pipit
     glPopMatrix();
 
     // Planet kelima
+    drawOrbit(18.0, 100);
+    
     glPushMatrix();
-    glColor3ub(255, 165, 0); // Warna planet kelima (oranye)
+    glColor3ub(255, 165, 0); // Warna (oranye)
     glRotatef(planetOrbit + 180, 0.0, 1.0, 0.0);
     glTranslatef(18.0, 0.0, 0.0);
     glRotatef(rotation * 0.5, 0.0, 1.0, 0.0);
@@ -185,15 +208,17 @@ void Anak() // Oleh pipit
     glPopMatrix();
 
     // Planet keenam
+    drawOrbit(22.0, 100);
+    
     glPushMatrix();
-    glColor3ub(210, 180, 140); // Warna planet keenam (coklat)
+    glColor3ub(210, 180, 140); // Warna (coklat)
     glRotatef(planetOrbit + 255, 0.0, 1.0, 0.0);
     glTranslatef(22.0, 0.0, 0.0);
     glRotatef(rotation * 0.3, 0.0, 1.0, 0.0);
     glutSolidSphere(1.7, 25, 25);
     
     glPushMatrix();//Cicin saturnus
-    glColor3ub(169,169,169);
+    glColor3ub(169,169,169); 
     glTranslatef(0.0, 0.1, 0.0);
     glutSolidTorus(0.1,2.0,30,30);
     glPopMatrix();
@@ -204,8 +229,10 @@ void Anak() // Oleh pipit
     glPopMatrix();
 
     // Planet ketujuh
+    drawOrbit(26.0, 100);
+    
     glPushMatrix();
-    glColor3ub(135, 206, 250); // Warna planet ketujuh (ungu)
+    glColor3ub(135, 206, 250); // Warna (ungu)
     glRotatef(planetOrbit + 270, 0.0, 1.0, 0.0);
     glTranslatef(26.0, 0.0, 0.0);
     glRotatef(rotation * 0.2, 0.0, 1.0, 0.0);
@@ -339,4 +366,3 @@ void drawText(float x , float y , float z, const char* text, int fontSize)
  glPopMatrix();
  glEnd();
 }
-
